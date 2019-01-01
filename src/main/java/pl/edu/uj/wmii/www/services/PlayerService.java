@@ -15,4 +15,13 @@ public class PlayerService {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public boolean isValid(String name) {
+        for (Player player: players) {
+            if (player.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

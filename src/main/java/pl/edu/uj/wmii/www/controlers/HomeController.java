@@ -10,7 +10,7 @@ import pl.edu.uj.wmii.www.services.PlayerService;
 import java.util.List;
 
 @Controller
-public class IndexController {
+public class HomeController {
     private PlayerService playerService = new PlayerService();
 
     @RequestMapping("/")
@@ -21,8 +21,9 @@ public class IndexController {
     @RequestMapping("/player")
     public ModelAndView addPlayer(@RequestParam("playerName") String playerName) {
 
-
-        playerService.addPlayer(playerName);
+        if (playerService.isValid(playerName)) {
+            playerService.addPlayer(playerName);
+        }
         List<Player> players = playerService.getPlayers();
 
         ModelAndView modelAndView = new ModelAndView();
@@ -36,6 +37,7 @@ public class IndexController {
     public ModelAndView startGame(@RequestParam("chosenPlayers") Player[] chosenPlayers) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game");
+        modelAndView.addObject("chosenPlayers");
         return modelAndView;
     }
 }
