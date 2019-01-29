@@ -25,3 +25,7 @@
 </form>
 </body>
 </html>
+
+
+-- infinity scroll, wykorzystac biblioteke jQuery czy inna by utrakcyjnić front
+-- https://www.sitepoint.com/jquery-infinite-scrolling-demos/

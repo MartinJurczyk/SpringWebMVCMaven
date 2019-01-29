@@ -8,15 +8,17 @@ import java.util.List;
 public class PlayerService {
     private List<Player> players = new ArrayList<Player>();
 
-    public void addPlayer(String playerName) {
-        players.add(new Player(playerName));
-    }
-
     public List<Player> getPlayers() {
         return players;
     }
 
-    public boolean isValid(String name) {
+    public void addPlayer(String playerName) {
+        if (isValid(playerName)) {
+            players.add(new Player(playerName));
+        }
+    }
+
+    private boolean isValid(String name) {
         for (Player player: players) {
             if (player.getName().equals(name)) {
                 return false;

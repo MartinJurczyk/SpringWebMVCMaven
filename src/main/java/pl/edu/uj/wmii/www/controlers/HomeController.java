@@ -21,9 +21,7 @@ public class HomeController {
     @RequestMapping("/player")
     public ModelAndView addPlayer(@RequestParam("playerName") String playerName) {
 
-        if (playerService.isValid(playerName)) {
-            playerService.addPlayer(playerName);
-        }
+        playerService.addPlayer(playerName);
         List<Player> players = playerService.getPlayers();
 
         ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +35,7 @@ public class HomeController {
     public ModelAndView startGame(@RequestParam("chosenPlayers") Player[] chosenPlayers) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game");
-        modelAndView.addObject("chosenPlayers");
+        modelAndView.addObject("players", chosenPlayers);
         return modelAndView;
     }
 }
