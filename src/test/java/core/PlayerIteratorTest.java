@@ -14,14 +14,14 @@ class PlayerIteratorTest {
 
     @BeforeEach
     void setUp() {
-        players.add(new Player("Martin", 1000, 0, false, false));
-        players.add(new Player("Bogdan", 2000, 0, false, false));
+        players.add(new Player(1,"Martin", 1000, 0, false, false));
+        players.add(new Player(2, "Bogdan", 2000, 0, false, false));
     }
 
     @Test
     void testPeriodic() {
         //given
-        players.add(new Player("Magda", 3000, 0, true, false));
+        players.add(new Player(3, "Magda", 3000, 0, true, false));
         PlayerIterator playerIterator = new PlayerIterator(players, 0);
 
         // when

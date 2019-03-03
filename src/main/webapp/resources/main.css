@@ -1,0 +1,105 @@
+body
+{
+	margin: 0;
+	background-color: #26282E;
+	color: cornflowerblue;
+    font-family: 'Lobster', sans-serif;
+    font-size: 28px;
+}
+
+a:link    { color: cornflowerblue; text-decoration: none; }
+a:visited { color: cornflowerblue; }
+a:active  { color: cornflowerblue; }
+a:hover   { color: #E9B64A; }
+
+h1
+{
+    font-size: 64px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 5px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+p
+{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.board
+{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.playerBoard
+{
+    width: 260px;
+	display: inline-block;
+    margin: 20px;
+    border: 4px solid #26282E;
+    border-radius: 10px;
+    cursor: default;
+    transition: all .3s ease-in-out;
+}
+
+.playerBoardA
+{
+    width: 260px;
+    display: inline-block;
+    margin: 20px;
+    border: 4px solid #e9b64a;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.playerBoard.card:hover
+{
+    border: 4px solid cornflowerblue;
+}
+
+.cardA
+{
+    width: 104px;
+    height: 146px;
+    display: inline-block;
+    margin: 3px;
+    background-image: url("img/cover.png");
+    border: 4px solid #e9b64a;
+    border-radius: 4px;
+    cursor: default;
+    filter: brightness(100%);
+    transition: all .3s ease-in-out;
+}
+
+.card
+{
+    width: 104px;
+    height: 146px;
+    display: inline-block;
+    margin: 3px;
+    background-image: url("img/cover.png");
+    border: 4px solid cornflowerblue;
+    border-radius: 4px;
+    cursor: pointer;
+    filter: brightness(70%);
+    transition: all .3s ease-in-out;
+}
+
+.card:hover
+{
+    border: 4px solid #e9b64a;
+    filter: brightness(100%);
+}
+
+.score
+{
+    margin-top: 5px;
+    letter-spacing: 2px;
+}

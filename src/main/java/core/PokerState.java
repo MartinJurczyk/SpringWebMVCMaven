@@ -2,21 +2,21 @@ package core;
 
 import java.util.List;
 
-public class PokerState implements GameState {
+public class PokerState {
     private PlayerIterator playerIterator;
     private List<Player> players;
-    private Game game;
     private int poolMoney;
     private int maxAnte;
     private int minOverTrumping;
+    private Player winner;
 
-    private PokerState(PlayerIterator playerIterator, List<Player> players, Game game, int poolMoney, int maxAnte, int minOverTrumping) {
+    private PokerState(PlayerIterator playerIterator, List<Player> players, int poolMoney, int maxAnte, int minOverTrumping) {
         this.playerIterator = playerIterator;
         this.players = players;
-        this.game = game;
         this.poolMoney = poolMoney;
         this.maxAnte = maxAnte;
         this.minOverTrumping = minOverTrumping;
+        this.winner = players.get(0);
     }
 
     public int getPoolMoney() {
@@ -41,18 +41,19 @@ public class PokerState implements GameState {
 
     public void resign() {
         getCurrentPlayer().setPassed(true);
-        nextPlayer();
+        winner = nextPlayer();
     }
 
-    private void nextPlayer() {
-        Player next = playerIterator.next();
-        if (isAdjusted(next)) {
-            game.nextStep();
+    private Player nextPlayer() {
+        return playerIterator.next();
+    }
+
+    public void cleanUp() {
+        winner.setOwnMoney(winner.getOwnMoney() + poolMoney);
+        poolMoney = 0;
+        for(Player player: players) {
+            player.setBetMoney(0);
         }
-    }
-
-    public void cleanTable() {
-
     }
 
     public Player getCurrentPlayer() {
@@ -60,18 +61,17 @@ public class PokerState implements GameState {
     }
 
 
-    public static GameStateBuilder builder() {
-        return new GameStateBuilder();
-    }
-
     private boolean isAdjusted(Player next) {
         return getMaxAnte() == next.getBetMoney();
+    }
+
+    public static GameStateBuilder builder() {
+        return new GameStateBuilder();
     }
 
     public static class GameStateBuilder {
         private PlayerIterator playerIterator;
         private List<Player> players;
-        private Game game;
         private int poolMoney = 0;
         private int maxAnte = 0;
         private int minOverTrumping = 1;
@@ -79,11 +79,6 @@ public class PokerState implements GameState {
         public GameStateBuilder players(List<Player> players) {
             this.playerIterator = new PlayerIterator(players, 0);
             this.players = players;
-            return this;
-        }
-
-        public GameStateBuilder game(Game game) {
-            this.game = game;
             return this;
         }
 
@@ -103,8 +98,40 @@ public class PokerState implements GameState {
         }
 
         public PokerState build() {
-            return new PokerState(playerIterator, players, game, poolMoney,maxAnte, minOverTrumping);
+            return new PokerState(playerIterator, players, poolMoney,maxAnte, minOverTrumping);
         }
 
+    }
+
+    public PlayerIterator getPlayerIterator() {
+        return playerIterator;
+    }
+
+    public void setPlayerIterator(PlayerIterator playerIterator) {
+        this.playerIterator = playerIterator;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public void setPoolMoney(int poolMoney) {
+        this.poolMoney = poolMoney;
+    }
+
+    public void setMaxAnte(int maxAnte) {
+        this.maxAnte = maxAnte;
+    }
+
+    public int getMinOverTrumping() {
+        return minOverTrumping;
+    }
+
+    public void setMinOverTrumping(int minOverTrumping) {
+        this.minOverTrumping = minOverTrumping;
     }
 }

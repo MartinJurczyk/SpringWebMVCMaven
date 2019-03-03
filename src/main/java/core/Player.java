@@ -1,18 +1,37 @@
 package core;
 
 public class Player {
+    private Integer id;
     private String name;
     private int ownMoney;
     private int betMoney;
     private boolean waited;
     private boolean passed;
 
-    public Player(String name, int ownMoney, int betMoney, boolean waited, boolean passed) {
+    public Player(Integer id, String name, int ownMoney, int betMoney) {
+        this.id = id;
+        this.name = name;
+        this.ownMoney = ownMoney;
+        this.betMoney = betMoney;
+        this.waited = false;
+        this.passed = false;
+    }
+
+    public Player(Integer id, String name, int ownMoney, int betMoney, boolean waited, boolean passed) {
+        this.id = id;
         this.name = name;
         this.ownMoney = ownMoney;
         this.betMoney = betMoney;
         this.waited = waited;
         this.passed = passed;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,6 +73,4 @@ public class Player {
     public void setPassed(boolean passed) {
         this.passed = passed;
     }
-
-
 }

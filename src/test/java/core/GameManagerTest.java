@@ -14,36 +14,36 @@ class GameManagerTest {
     @Test
     void test() throws IOException {
         List<Player> players = new ArrayList<Player>();
-        Player martin = new Player("Martin", 1000, 0, false, false);
+        Player martin = new Player(1,"Martin", 1000, 0, false, false);
         players.add(martin);
-        Player magda = new Player("Magda", 1000, 0, false, false);
+        Player magda = new Player(2, "Magda", 1000, 0, false, false);
         players.add(magda);
 
         PokerState pokerState = PokerState.builder()
                 .players(players)
-                .game(new Poker())
+                .maxAnte(1)
+                .poolMoney(200)
+                .minOverTrumping(1)
                 .build();
 
-        GameManager gameManager = new GameManager(pokerState, new PokerValidator());
-
         // rozdanie
-        gameManager.move(martin, 20);
-        gameManager.move(magda, 20);
+        pokerState.makeMove(20);
+        pokerState.makeMove(20);
         // 3 karty na stole
-        gameManager.move(martin, 10);
-        gameManager.move(magda, 20);
-        gameManager.move(martin, 20);
-        gameManager.move(magda, 10);
+        pokerState.makeMove(10);
+        pokerState.makeMove(20);
+        pokerState.makeMove(20);
+        pokerState.makeMove(10);
         // 4 karty na stole
-        gameManager.move(martin, 0);
-        gameManager.move(magda, 10);
-        gameManager.move(martin, 20);
-        gameManager.move(magda, 20);
+        pokerState.makeMove(0);
+        pokerState.makeMove(10);
+        pokerState.makeMove(20);
+        pokerState.makeMove(20);
         // 5 kart na stole
-        gameManager.move(martin, 0);
-        gameManager.move(magda, 100);
-        PokerState gameState = (PokerState)gameManager.resign(martin);
+        pokerState.makeMove(0);
+        pokerState.makeMove(100);
+        pokerState.resign();
 
-        assertEquals(gameState.getPoolMoney(), 250);
+        assertEquals(pokerState.getPoolMoney(), 450);
     }
 }
